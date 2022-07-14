@@ -9,3 +9,8 @@ spring:
     password:
   jpa:
     database: MySQL
+    hibernate.ddl-auto: create
+
+properties:
+  registration-token-size: 20
+
