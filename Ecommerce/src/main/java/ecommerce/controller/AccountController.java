@@ -1,15 +1,14 @@
 package ecommerce.controller;
 
+import javax.validation.Valid;
 import ecommerce.model.Account;
 import ecommerce.model.CreateAccountRequest;
-import ecommerce.service.AccountServiceImpl;
+import ecommerce.model.ConfirmAccountRequest;
+import ecommerce.service.impl.AccountServiceImpl;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.mail.MessagingException;
-import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/account")
@@ -22,8 +21,13 @@ public class AccountController {
     }
 
     @RequestMapping(value="/create",method= RequestMethod.POST)
-    public Account createAccount(@Valid @RequestBody CreateAccountRequest accountRequest) throws MessagingException {
+    public Account createAccount(@Valid @RequestBody CreateAccountRequest accountRequest){
         return accountService.createAccount(accountRequest);
+    }
+
+    @RequestMapping(value="/confirm",method= RequestMethod.POST)
+    public Account confirmAccount(@Valid @RequestBody ConfirmAccountRequest confirmRequest){
+        return accountService.confirmAccount(confirmRequest);
     }
 
 }

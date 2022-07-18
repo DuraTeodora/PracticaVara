@@ -5,14 +5,10 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Account")
 @Getter
 @Setter
+@Table(name = "Account")
 public class Account {
-
-    public enum Status {ACTIVE, PENDING}
-    public enum Type {PERSONAL, REAL, NOMINAL}
-    public enum Role {USER, ADMIN, CUSTOMER}
 
     public Account(Integer id, String firstName, String lastName, String email, String password, String phone, String address, Status status, Type type, Role role) {
         this.id = id;

@@ -1,12 +1,13 @@
-package ecommerce.service;
+package ecommerce.service.impl;
 
 import ecommerce.model.Test;
+import ecommerce.service.abs.TestService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class TestServiceSimulationImpl implements TestService{
+public class TestServiceSimulationImpl implements TestService {
     @Override
     public Test save(Test test) {
         return null;

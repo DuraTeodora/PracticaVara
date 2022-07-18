@@ -7,8 +7,9 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateAccountRequest {
+public class ConfirmAccountRequest {
 
-    private Account account;
+    private String token;
+    private String password;
 
 }

@@ -1,8 +1,7 @@
 package ecommerce.controller;
 
 import ecommerce.model.Test;
-import ecommerce.service.TestService;
-import ecommerce.service.TestServiceImpl;
+import ecommerce.service.abs.TestService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 

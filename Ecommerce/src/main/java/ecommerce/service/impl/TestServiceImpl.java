@@ -1,7 +1,8 @@
-package ecommerce.service;
+package ecommerce.service.impl;
 
 import ecommerce.model.Test;
 import ecommerce.repository.TestRepository;
+import ecommerce.service.abs.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-public class TestServiceImpl implements TestService{
+public class TestServiceImpl implements TestService {
 
     @Autowired
     public TestRepository testRepository;

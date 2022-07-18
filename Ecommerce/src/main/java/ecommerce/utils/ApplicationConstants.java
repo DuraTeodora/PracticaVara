@@ -1,7 +1,8 @@
 package ecommerce.utils;
 
-public class ApplicationConstants {
+public final class ApplicationConstants {
 
     private ApplicationConstants(){}
 
+    public static final String registerConstant = "Registration token";
 }

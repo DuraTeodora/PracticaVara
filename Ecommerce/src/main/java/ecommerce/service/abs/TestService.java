@@ -1,4 +1,4 @@
-package ecommerce.service;
+package ecommerce.service.abs;
 
 import ecommerce.model.Test;
 
