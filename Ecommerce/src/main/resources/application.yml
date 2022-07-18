@@ -10,6 +10,21 @@ spring:
   jpa:
     database: MySQL
     hibernate.ddl-auto: create
+  mail:
+    default-encoding: UTF-8
+    host: smtp.gmail.com
+    port: 587
+    username: durateodora11@gmail.com
+    password: pfxgzfndscxomjit
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+        debug: true
+    protocol: smtp
+    test-connection: false
 
 properties:
   registration-token-size: 20

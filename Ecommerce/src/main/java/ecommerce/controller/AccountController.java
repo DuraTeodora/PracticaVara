@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 
 @RestController
@@ -20,7 +22,7 @@ public class AccountController {
     }
 
     @RequestMapping(value="/create",method= RequestMethod.POST)
-    public Account createAccount(@Valid @RequestBody CreateAccountRequest accountRequest){
+    public Account createAccount(@Valid @RequestBody CreateAccountRequest accountRequest) throws MessagingException {
         return accountService.createAccount(accountRequest);
     }
 
