@@ -1,34 +1,29 @@
 package ecommerce.model;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "Account")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Account {
 
-    public Account(Integer id, String firstName, String lastName, String email, String password, String phone, String address, Status status, Type type, Role role) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.phone = phone;
-        this.address = address;
-        this.status = status;
-        this.type = type;
-        this.role = role;
-    }
-
-    public Account() { }
-
     @Id
-    @Column(name="id",nullable=false,unique=true)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "id", updatable = false, nullable = false, unique=true, columnDefinition = "BINARY(16)")
+    @GeneratedValue
+    private UUID id;
 
     @Column(name = "firstname")
     private String firstName;
@@ -59,5 +54,16 @@ public class Account {
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Role role;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedOn;
+
+    @CreationTimestamp
+    private LocalDateTime createdOn;
+
+    public Account hidePassword(){
+        this.setPassword("");
+        return this;
+    }
 
 }

@@ -1,11 +1,9 @@
 package ecommerce.model;
 
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Table(name = "Test")
@@ -13,12 +11,14 @@ import javax.persistence.*;
 @Setter
 @Builder
 @EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
 public class Test {
 
     @Id
     @Column(name="id",nullable=false,unique=true)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue
+    private UUID id;
 
     @Column(name = "firstname")
     private String firstName;

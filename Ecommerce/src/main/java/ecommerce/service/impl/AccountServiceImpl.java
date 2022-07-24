@@ -5,11 +5,13 @@ import ecommerce.component.TokenGenerator;
 import ecommerce.service.abs.AccountService;
 import org.springframework.stereotype.Service;
 import ecommerce.repository.AccountRepository;
-import static ecommerce.utils.ApplicationConstants.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import javax.transaction.Transactional;
+import java.util.UUID;
 
 @Service
+@Transactional
 public class AccountServiceImpl implements AccountService {
 
     @Value("${properties.registration-token-size}")
@@ -19,7 +21,7 @@ public class AccountServiceImpl implements AccountService {
 
     private final AccountRepository accountRepository;
 
-    private final TokenServiceImpl tokenService;
+    private final RegistrationTokenServiceImpl tokenService;
 
     private final TokenGenerator tokenGenerator;
 
@@ -27,7 +29,7 @@ public class AccountServiceImpl implements AccountService {
 
     public AccountServiceImpl(AccountRepository registerRepository,
                               TokenGenerator tokenGenerator,
-                              EmailSenderService emailSenderService, TokenServiceImpl tokenService, PasswordEncoder passwordEncoder) {
+                              EmailSenderService emailSenderService, RegistrationTokenServiceImpl tokenService, PasswordEncoder passwordEncoder) {
         this.accountRepository = registerRepository;
         this.tokenGenerator = tokenGenerator;
         this.tokenService = tokenService;
@@ -36,39 +38,35 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Account createAccount(CreateAccountRequest accountRequest){
+    public Account createAccount(CreateAccountRequest accountRequest) {
 
-         accountRequest.getAccount().setStatus(Status.PENDING);
-         Account createdAccount = accountRepository.save(accountRequest.getAccount());
-         String registrationToken = tokenGenerator.generateToken(registrationTokenSize);
-         tokenService.saveToken(RegistrationToken.builder()
-                 .id(accountRequest.getAccount().getId())
-                 .token(registrationToken).build());
-         emailSenderService.registerEmail(accountRequest.getAccount().getEmail(),registrationToken,registerConstant);
-         return createdAccount;
+        accountRequest.getAccount().setStatus(Status.PENDING);
+        Account createdAccount = accountRepository.save(accountRequest.getAccount());
+        String registrationToken = tokenGenerator.generateToken(registrationTokenSize);
+        tokenService.saveRegistrationToken(RegistrationToken.builder()
+                .id(accountRequest.getAccount().getId())
+                .token(registrationToken).build());
+        //emailSenderService.registerEmail(accountRequest.getAccount().getEmail(), registrationToken, registerConstant);
+        return createdAccount;
 
     }
 
     @Override
     public Account confirmAccount(ConfirmAccountRequest confirmRequest) {
 
-        Integer registerAccountId = tokenService.getToken(confirmRequest.getToken()).getId();
+        RegistrationToken registerToken = tokenService.getRegistrationToken(confirmRequest.getToken());
+        UUID registerAccountId = registerToken.getId();
+        tokenService.deleteRegistrationToken(registerToken.getId());
         Account registerAccount = accountRepository.getAccountById(registerAccountId);
-        try{
-            if(registerAccount.getStatus().equals(Status.PENDING)){
-                System.out.println("The account's status is pending!");
-                registerAccount.setStatus(Status.ACTIVE);
-                registerAccount.setPassword(passwordEncoder.encode(confirmRequest.getPassword()));
-                accountRepository.save(registerAccount);
-            }
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
+
+        if (!registerAccount.getStatus().equals(Status.PENDING)) {
+            throw new IllegalArgumentException("Account's status is not pending");
         }
+
+        System.out.println("Account's status is pending!");
+        registerAccount.setStatus(Status.ACTIVE);
+        registerAccount.setPassword(passwordEncoder.encode(confirmRequest.getPassword()));
+        accountRepository.save(registerAccount);
         return registerAccount;
     }
-
-//    public static String encodeToBase64(String message) {
-//        return Base64.getEncoder().encodeToString(message.getBytes());
-//    }
-
 }

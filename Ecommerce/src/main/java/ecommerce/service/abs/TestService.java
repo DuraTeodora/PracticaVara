@@ -9,6 +9,6 @@ public interface TestService {
     Test save(Test test);
     List<Test> getAll();
     void delete(Integer id);
-    Test update(Test test);
+    //Test update(Test test);
 
 }

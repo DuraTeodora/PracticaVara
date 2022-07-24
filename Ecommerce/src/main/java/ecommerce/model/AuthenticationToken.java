@@ -2,7 +2,9 @@ package ecommerce.model;
 
 import lombok.*;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.UUID;
 
 @Entity
@@ -11,7 +13,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegistrationToken {
+public class AuthenticationToken {
 
     @Id
     @Column(name = "account_id", updatable = false, nullable = false, unique=true, columnDefinition = "BINARY(16)")
@@ -19,5 +21,4 @@ public class RegistrationToken {
 
     @Column(name="token",nullable=false)
     private String token;
-
 }

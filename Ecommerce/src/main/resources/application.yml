@@ -14,8 +14,8 @@ spring:
     default-encoding: UTF-8
     host: smtp.gmail.com
     port: 587
-    username:
-    password:
+    username: durateodora11@gmail.com
+    password: pfxgzfndscxomjit
     properties:
       mail:
         smtp:
@@ -28,4 +28,5 @@ spring:
 
 properties:
   registration-token-size: 20
+  authentification-token-size: 20
 

@@ -27,7 +27,7 @@ public class AccountController {
 
     @RequestMapping(value="/confirm",method= RequestMethod.POST)
     public Account confirmAccount(@Valid @RequestBody ConfirmAccountRequest confirmRequest){
-        return accountService.confirmAccount(confirmRequest);
+        return accountService.confirmAccount(confirmRequest).hidePassword();
     }
 
 }

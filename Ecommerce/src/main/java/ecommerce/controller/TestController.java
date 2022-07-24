@@ -35,10 +35,10 @@ public class TestController {
         testService.delete(id);
     }
 
-    @RequestMapping(value="/update",method = RequestMethod.PUT)
-    public Test updateTestById(@RequestBody Test test){
-        return testService.update(test);
-    }
+//    @RequestMapping(value="/update",method = RequestMethod.PUT)
+//    public Test updateTestById(@RequestBody Test test){
+//        return testService.update(test);
+//    }
 
 
 }
