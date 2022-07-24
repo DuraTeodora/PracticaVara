@@ -69,4 +69,10 @@ public class AccountServiceImpl implements AccountService {
         accountRepository.save(registerAccount);
         return registerAccount;
     }
+
+    @Override
+    public Account getAccountById(UUID id) {
+        return accountRepository.getAccountById(id);
+    }
+
 }

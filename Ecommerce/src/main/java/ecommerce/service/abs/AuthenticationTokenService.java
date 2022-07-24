@@ -6,6 +6,7 @@ import java.util.UUID;
 
 public interface AuthenticationTokenService {
 
-    AuthenticationToken saveAuthentificationToken(AuthenticationToken token);
-    void deleteAuthentificationToken(UUID id);
+    AuthenticationToken saveAuthenticationToken(AuthenticationToken token);
+    void deleteAuthenticationToken(UUID id);
+    AuthenticationToken getAuthenticationToken(String token);
 }

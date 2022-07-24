@@ -45,12 +45,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }
         if (passwordEncoder.matches(loginRequest.getPassword(), authenticationAccount.getPassword())) {
             String authenticationToken = tokenGenerator.generateToken(authenticationTokenSize);
-            authenticationTokenService.saveAuthentificationToken(AuthenticationToken.builder()
+            authenticationTokenService.saveAuthenticationToken(AuthenticationToken.builder()
                     .id(authenticationAccount.getId())
                     .token(authenticationToken).build());
             return LoginResponse.builder()
                     .loginAccount(authenticationAccount)
-                    .authentificationToken(authenticationToken)
+                    .authenticationToken(authenticationToken)
                     .build();
         } else {
             throw new BadCredentialsException("Data doesn't match!");
@@ -59,7 +59,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public void logout(UUID authenicationAccountId) {
-        authenticationTokenService.deleteAuthentificationToken(authenicationAccountId);
+        authenticationTokenService.deleteAuthenticationToken(authenicationAccountId);
     }
+
+
 
 }

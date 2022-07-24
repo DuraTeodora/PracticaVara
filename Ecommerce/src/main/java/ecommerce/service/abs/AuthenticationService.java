@@ -2,7 +2,6 @@ package ecommerce.service.abs;
 
 import ecommerce.model.LoginRequest;
 import ecommerce.model.LoginResponse;
-
 import java.util.UUID;
 
 public interface AuthenticationService {

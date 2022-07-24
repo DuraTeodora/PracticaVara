@@ -11,20 +11,25 @@ import java.util.UUID;
 @Transactional
 public class AuthenticationTokenServiceImpl implements AuthenticationTokenService {
 
-    private final AuthenticationTokenRepository authentificationTokenRepository;
+    private final AuthenticationTokenRepository authenticationTokenRepository;
 
     public AuthenticationTokenServiceImpl(AuthenticationTokenRepository authentificationTokenRepository) {
-        this.authentificationTokenRepository = authentificationTokenRepository;
+        this.authenticationTokenRepository = authentificationTokenRepository;
     }
 
     @Override
-    public AuthenticationToken saveAuthentificationToken(AuthenticationToken authentificationToken) {
-        return authentificationTokenRepository.save(authentificationToken);
+    public AuthenticationToken saveAuthenticationToken(AuthenticationToken authentificationToken) {
+        return authenticationTokenRepository.save(authentificationToken);
     }
 
     @Override
-    public void deleteAuthentificationToken(UUID id) {
-        authentificationTokenRepository.deleteAuthentificationTokenById(id);
+    public void deleteAuthenticationToken(UUID id) {
+        authenticationTokenRepository.deleteAuthentificationTokenById(id);
+    }
+
+    @Override
+    public AuthenticationToken getAuthenticationToken(String token) {
+        return authenticationTokenRepository.getAuthenticationTokenByToken(token);
     }
 
 }

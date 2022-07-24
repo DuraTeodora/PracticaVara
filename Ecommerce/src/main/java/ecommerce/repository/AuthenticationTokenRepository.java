@@ -7,4 +7,5 @@ import java.util.UUID;
 public interface AuthenticationTokenRepository extends JpaRepository<AuthenticationToken, UUID> {
 
     void deleteAuthentificationTokenById(UUID id);
+    AuthenticationToken getAuthenticationTokenByToken(String token);
 }
