@@ -11,4 +11,9 @@ public class LoginResponse {
 
     private Account loginAccount;
     private String authenticationToken;
+
+    public LoginResponse hidePassword(){
+        this.loginAccount.setPassword("");
+        return this;
+    }
 }

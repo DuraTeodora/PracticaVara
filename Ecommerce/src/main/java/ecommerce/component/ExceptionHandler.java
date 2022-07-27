@@ -2,6 +2,7 @@ package ecommerce.component;
 
 import ecommerce.exception.BadCredentialsException;
 import ecommerce.exception.LoginException;
+import ecommerce.exception.StoreCreateException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -21,12 +22,12 @@ public class ExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @org.springframework.web.bind.annotation.ExceptionHandler(value = {LoginException.class,BadCredentialsException.class})
-    public ResponseEntity<Object> loginException(LoginException loginException) {
+    @org.springframework.web.bind.annotation.ExceptionHandler(value = {LoginException.class,BadCredentialsException.class, StoreCreateException.class})
+    public ResponseEntity<Object> loginException(RuntimeException runtimeException) {
 
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
-        body.put("message", loginException.getMessage());
+        body.put("message", runtimeException.getMessage());
         return new ResponseEntity<>(body, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

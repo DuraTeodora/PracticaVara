@@ -8,7 +8,7 @@ import javax.validation.Valid;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/account")
+@RequestMapping("/auth")
 public class AuthenticationController {
 
     private final AuthenticationServiceImpl authenticationService;
@@ -19,7 +19,7 @@ public class AuthenticationController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public LoginResponse login(@Valid @RequestBody LoginRequest loginRequest) {
-        return authenticationService.login(loginRequest);
+        return authenticationService.login(loginRequest).hidePassword();
     }
 
     @RequestMapping(value = "/logout/{authenticationAccountId}", method = RequestMethod.POST)

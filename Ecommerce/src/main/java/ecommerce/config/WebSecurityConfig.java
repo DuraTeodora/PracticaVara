@@ -36,7 +36,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity webSecurity) {
-        webSecurity.ignoring().antMatchers("/account/");
+        webSecurity.ignoring().antMatchers(
+                "/account/create",
+                           "/account/confirm",
+                           "/auth/login",
+                           "/auth/logout"
+                );
     }
 
     @Override
